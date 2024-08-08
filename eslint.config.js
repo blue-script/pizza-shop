@@ -22,5 +22,10 @@ export default tseslint.config({
       'warn',
       { allowConstantExport: true },
     ],
+    "comma-dangle": ["error", "never"],
+    "quotes": ["error", "double"],
+    "react/prop-types": [0],
+    "indent": ['error', 2, { "SwitchCase": 1 }],
+    "semi": ["error", "never"]
   },
 })
