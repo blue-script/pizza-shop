@@ -31,7 +31,7 @@ export const Layout = () => {
           Exit
         </Button>
       </div>
-      <div className={s.right_side}>
+      <div className={s.content}>
         <Outlet/>
       </div>
     </div>

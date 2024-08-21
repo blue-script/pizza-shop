@@ -26,6 +26,10 @@ export default tseslint.config({
     "quotes": ["error", "double"],
     "react/prop-types": [0],
     "indent": ['error', 2, { "SwitchCase": 1 }],
-    "semi": ["error", "never"]
+    "semi": ["error", "never"],
+    "padding-line-between-statements": [
+      "error",
+      { "blankLine": "always", "prev": "*", "next": "return" }
+    ]
   },
 })
