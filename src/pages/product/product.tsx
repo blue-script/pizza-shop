@@ -1,12 +1,19 @@
-import {useLoaderData} from "react-router-dom"
+import {Await, useLoaderData} from "react-router-dom"
 import {ProductDTO} from "../../helpers/products.dto"
+import {Suspense} from "react"
 
 export const Product = () => {
-  const data = useLoaderData() as ProductDTO
+  const data = useLoaderData() as { data: ProductDTO }
 
   return (
-    <div>
-      Product - {data.name}
-    </div>
+    <>
+      <Suspense fallback={<>LOADING...</>}>
+        <Await resolve={data.data}>
+          {({data}: { data: ProductDTO }) => (
+            <>Product - {data.name}</>
+          )}
+        </Await>
+      </Suspense>
+    </>
   )
 }

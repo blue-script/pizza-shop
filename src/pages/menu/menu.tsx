@@ -7,7 +7,7 @@ import {useEffect, useState} from "react"
 import axios, {AxiosError} from "axios"
 import {MenuList} from "./menu-list/menu-list"
 
-export const Menu = () => {
+const Menu = () => {
   const [products, setProducts] = useState<ProductsDTO>([])
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
@@ -15,7 +15,7 @@ export const Menu = () => {
   const getMenu = async () => {
     try {
       setIsLoading(true)
-      await new Promise<void>(resolve => setTimeout(resolve, 2000))
+      await new Promise<void>(resolve => setTimeout(resolve, 1000))
 
       const res = await axios.get<ProductsDTO>(`${PREFIX}/products`)
       setProducts(res.data)
@@ -50,3 +50,4 @@ export const Menu = () => {
   )
 }
 
+export default Menu

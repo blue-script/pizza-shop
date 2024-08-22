@@ -1,1 +1,1 @@
-export {} from "./error"
+export {Error} from "./error"
