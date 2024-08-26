@@ -5,7 +5,7 @@ import {Input} from "../../components/Input"
 import {Button} from "../../components/Button"
 import {FormEvent, useEffect} from "react"
 import {useAppDispatch} from "../../store/store"
-import {userActions, userAsyncThunk, userGetErrorMessage, userGetJwt} from "../../store/user.slice"
+import {userActions, userAsyncThunk, loginGetErrorMessage, userGetJwt} from "../../store/user.slice"
 import {useSelector} from "react-redux"
 
 export type LoginForm = {
@@ -21,7 +21,7 @@ export const Login = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const jwt = useSelector(userGetJwt)
-  const loginErrorMessage = useSelector(userGetErrorMessage)
+  const loginErrorMessage = useSelector(loginGetErrorMessage)
 
   useEffect(() => {
     if (jwt) {
@@ -63,7 +63,7 @@ export const Login = () => {
 
       <div className={s.footer}>
         <span>No account?</span>
-        <NavLink to="/register">Register</NavLink>
+        <NavLink to="/auth/register">Register</NavLink>
       </div>
     </div>
   )

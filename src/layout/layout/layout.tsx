@@ -6,11 +6,13 @@ import {useAppDispatch} from "../../store/store"
 import {getProfile, userActions, userProfile} from "../../store/user.slice"
 import {useEffect} from "react"
 import {useSelector} from "react-redux"
+import {cartItems} from "../../store/cart.slice"
 
 export const Layout = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const user = useSelector(userProfile)
+  const itemsInCart = useSelector(cartItems)
 
   useEffect(() => {
     dispatch(getProfile())
@@ -41,6 +43,9 @@ export const Layout = () => {
             <img src="/cart-icon.svg" alt="cart icon"/>
             Cart
           </NavLink>
+          <div>
+            countItems: {itemsInCart.reduce((acc, item) => acc + item.count, 0)}
+          </div>
         </div>
 
         <Button className={s.exit} onClick={logout}>

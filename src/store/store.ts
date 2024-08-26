@@ -2,10 +2,12 @@ import {configureStore} from "@reduxjs/toolkit"
 import {JWT_PERSISTENT_STATE, userName, userReducer} from "./user.slice"
 import {useDispatch} from "react-redux"
 import {saveState} from "./storage"
+import {cartName, cartReducer} from "./cart.slice"
 
 export const store = configureStore({
   reducer: {
-    [userName]: userReducer
+    [userName]: userReducer,
+    [cartName]: cartReducer
   }
 })
 

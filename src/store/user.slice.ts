@@ -15,6 +15,7 @@ type UserPersistentState = {
 type UserState = {
   jwt: string | null
   loginErrorMessage?: string
+  registerErrorMessage?: string
   profile?: Profile
 }
 
@@ -28,6 +29,24 @@ export const login = createAsyncThunk("user/login",
       const {data} = await axios.post<LoginDTO>(`${PREFIX}/auth/login`, {
         email: arg.email,
         password: arg.password
+      })
+
+      return data
+    } catch (e) {
+      if (e instanceof AxiosError) {
+        throw new Error(e.response?.data.message)
+      }
+    }
+  }
+)
+
+export const register = createAsyncThunk("user/register",
+  async (arg: { email: string, password: string, name: string }) => {
+    try {
+      const {data} = await axios.post<LoginDTO>(`${PREFIX}/auth/register`, {
+        email: arg.email,
+        password: arg.password,
+        name: arg.name
       })
 
       return data
@@ -58,8 +77,9 @@ const userSlice = createSlice({
   initialState,
   selectors: {
     userGetJwt: (state: UserState) => state.jwt,
-    userGetErrorMessage: (state: UserState) => state.loginErrorMessage,
-    userProfile: (state: UserState) => state.profile
+    loginGetErrorMessage: (state: UserState) => state.loginErrorMessage,
+    userProfile: (state: UserState) => state.profile,
+    registerGetErrorMessage: (state: UserState) => state.registerErrorMessage
   },
   reducers: {
     logout: (state) => {
@@ -67,6 +87,9 @@ const userSlice = createSlice({
     },
     clearLoginError: (state) => {
       state.loginErrorMessage = undefined
+    },
+    clearRegisterError: (state) => {
+      state.registerErrorMessage = undefined
     }
   },
   extraReducers: (builder) => {
@@ -81,11 +104,23 @@ const userSlice = createSlice({
       if (!action.payload) return
       state.profile = action.payload
     })
+    builder.addCase(register.fulfilled, (state, action) => {
+      if (!action.payload) return
+      state.jwt = action.payload.access_token
+    })
+    builder.addCase(register.rejected, (state, action) => {
+      state.registerErrorMessage = action.error.message
+    })
   }
 })
 
 export const userReducer = userSlice.reducer
 export const userActions = userSlice.actions
 export const userName = userSlice.name
-export const {userGetJwt, userGetErrorMessage, userProfile} = userSlice.selectors
-export const userAsyncThunk = {login}
+export const {
+  userGetJwt,
+  loginGetErrorMessage,
+  userProfile,
+  registerGetErrorMessage
+} = userSlice.selectors
+export const userAsyncThunk = {login, register}
