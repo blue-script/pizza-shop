@@ -9,13 +9,19 @@ import {Product} from "./pages/product"
 import axios from "axios"
 import {PREFIX} from "./helpers/API"
 import {ProductDTO} from "./helpers/products.dto"
+import {AuthLayout} from "./layout/auth"
+import {Login} from "./pages/login"
+import {Register} from "./pages/register"
+import {RequireAuth} from "./helpers/require-auth"
+import {Provider} from "react-redux"
+import {store} from "./store/store"
 
 const Menu = lazy(() => import("./pages/menu"))
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout/>,
+    element: <RequireAuth><Layout/></RequireAuth>,
     children: [
       {
         path: "/",
@@ -42,6 +48,20 @@ const router = createBrowserRouter([
     ]
   },
   {
+    path: "/auth",
+    element: <AuthLayout/>,
+    children: [
+      {
+        path: "login",
+        element: <Login/>
+      },
+      {
+        path: "register",
+        element: <Register/>
+      }
+    ]
+  },
+  {
     path: "*",
     element: <ErrorPage/>
   }
@@ -49,6 +69,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <RouterProvider router={router}/>
+    <Provider store={store}>
+      <RouterProvider router={router}/>
+    </Provider>
   </StrictMode>
 )
