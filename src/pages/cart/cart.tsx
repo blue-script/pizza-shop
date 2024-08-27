@@ -20,6 +20,7 @@ export const Cart = () => {
   const jwt = useSelector(userGetJwt)
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
+  
   const amount = items
     .map(i => {
       const product = products.find(p => p.id === i.id)
@@ -28,16 +29,6 @@ export const Cart = () => {
       return i.count * product.price
     })
     .reduce((acc, cur) => acc + cur, 0)
-
-  const checkout = async () => {
-    await axios.post((`${PREFIX}/order`), {products: items}, {
-      headers: {
-        Authorization: `Bearer ${jwt}`
-      }
-    })
-    dispatch(cartActions.empty())
-    navigate("/success")
-  }
 
   const getItem = async (id: number) => {
     const {data} = await axios.get<ProductDTO>(`${PREFIX}/products/${id}`)
@@ -48,6 +39,16 @@ export const Cart = () => {
   const loadAllItems = async () => {
     const res = await Promise.all(items.map(i => getItem(i.id)))
     setProducts(res)
+  }
+
+  const checkout = async () => {
+    await axios.post((`${PREFIX}/order`), {products: items}, {
+      headers: {
+        Authorization: `Bearer ${jwt}`
+      }
+    })
+    dispatch(cartActions.empty())
+    navigate("/success")
   }
 
   useEffect(() => {

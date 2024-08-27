@@ -1,0 +1,93 @@
+.product {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.head {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.prev_page {
+  padding: 10px 15px;
+  margin: 0;
+  background: none;
+  border: 1px solid var(--primary-color);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.prev_page:hover {
+  background: rgba(254, 114, 76, 0.29);
+}
+
+.title {
+  font-size: 30px;
+  margin: 0;
+}
+
+.to_cart {
+  margin-left: auto;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.description {
+  display: flex;
+  gap: 20px;
+}
+
+.image {
+  border-radius: 10px;
+}
+
+.text_info {
+  max-width: 200px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.price {
+  display: flex;
+  justify-content: space-between;
+  color: var(--text-color);
+  font-size: 19px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.rating {
+  display: flex;
+  justify-content: space-between;
+}
+
+.rating div {
+  background: var(--white-color);
+  padding: 3px 8px;
+  border-radius: 20px;
+  color: #111719;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  box-shadow: 0 6px 24px 0 rgba(254, 114, 76, 0.20);
+}
+
+.composition {
+
+}
+
+.ingredients {
+  display: flex;
+  flex-direction: column;
+}
+
+.ingredient {
+
+}
