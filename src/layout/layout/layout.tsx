@@ -28,7 +28,7 @@ export const Layout = () => {
       <div className={s.sidebar}>
         <div className={s.user}>
           <img className={s.avatar} src="/avatar.png" alt="avatar"/>
-          <div className={s.info}>
+          <div className={s.description}>
             <span className={s.info_name}>{user?.name}</span>
             <span className={s.info_email}>{user?.email}</span>
           </div>
@@ -41,11 +41,10 @@ export const Layout = () => {
           </NavLink>
           <NavLink to="/cart" className={({isActive}) => cn(s.link, {[s.active]: isActive})}>
             <img src="/cart-icon.svg" alt="cart icon"/>
-            Cart
+            Cart <span
+              className={s.cart_count}>{itemsInCart.reduce((acc, item) => acc + item.count, 0)}
+            </span>
           </NavLink>
-          <div>
-            countItems: {itemsInCart.reduce((acc, item) => acc + item.count, 0)}
-          </div>
         </div>
 
         <Button className={s.exit} onClick={logout}>
